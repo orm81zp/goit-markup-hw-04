@@ -17,18 +17,19 @@ button {
 
 /* CSS variables */
 :root {
-  --primary-brand: #4D5AE5;
-  --pressed-state: #404BBF;
-  --dark: #2E2F42;
-  --success: #31D0AA;
-  --text: #434455;
+  --iris: #4D5AE5;
+  --ocean: #404BBF;
+  --navy-blue: #2E2F42;
+  --green: #31D0AA;
+  --slate: #434455;
   --white-text: #FFFFFF;
-  --subtle-text: #8E8F99;
-  --accent: #E7E9FC;
-  --light: #F4F4FD;
+  --light-slate: #8E8F99;
+  --cornflower: #E7E9FC;
+  --cloud: #F4F4FD;
   --modal-overlay: #2E2F42;
   --white-background: #FFFFFF;
   --modal-background: #FCFCFC;
+  --transition-property: 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .container { 
@@ -54,7 +55,7 @@ button {
 body {
   font-family: "Roboto", "Helvetica Neue", Arial, sans-serif;
   line-height: 1.5;
-  color: var(--text);
+  color: var(--slate);
   letter-spacing: 2%;
   height: 100vh;
   display: flex;
@@ -68,12 +69,13 @@ main {
 /* links */
 a {
   text-decoration: none;
-  color: var(--text);
+  color: var(--slate);
+  transition: color var(--transition-property), border-color var(--transition-property);
 }
 
 a:hover,
 a:focus {
-  color: var(--pressed-state);
+  color: var(--ocean);
 }
 
 /* Buttons */
@@ -82,11 +84,12 @@ a:focus {
   font-family: inherit;
   font-weight: 500;
   line-height: 1.5;
-  background-color: var(--primary-brand);
+  background-color: var(--iris);
   color: var(--white-text);
   padding: 12px 24px;
-  border: 1px solid var(--primary-brand);
+  border: 1px solid var(--iris);
   border-radius: 4px;
+  transition: color var(--transition-property), background-color var(--transition-property), border-color var(--transition-property), box-shadow var(--transition-property);
 }
 
 .button:hover {
@@ -95,26 +98,26 @@ a:focus {
 
 .button:hover, 
 .button:focus {
-  background-color: var(--pressed-state);
-  border: 1px solid var(--pressed-state);
+  background-color: var(--ocean);
+  border: 1px solid var(--ocean);
 }
 
 button.secondary {
-  background-color: var(--light);
-  border: 1px solid var(--accent);
-  color: var(--primary-brand);
+  background-color: var(--cloud);
+  border: 1px solid var(--cornflower);
+  color: var(--iris);
 }
 
 button.secondary:hover,
 button.secondary:focus {
-  background-color: var(--pressed-state);
-  border: 1px solid var(--pressed-state);
+  background-color: var(--ocean);
+  border: 1px solid var(--ocean);
   color: var(--white-text);
 }
 
 /* headings */
 .heading {
-  color: var(--dark);
+  color: var(--navy-blue);
 }
 
 .heading-1 {
@@ -141,7 +144,7 @@ button.secondary:focus {
 /* Header */
 header {
   background-color: var(--white-background);
-  border-bottom: 1px solid var(--accent);
+  border-bottom: 1px solid var(--cornflower);
 }
 
 header .container {
@@ -157,7 +160,7 @@ header .container {
 
 /* Navigation */
 .page-nav {
-  color: var(--dark);
+  color: var(--navy-blue);
   display: flex;
   align-items: center;
 }
@@ -172,10 +175,23 @@ header .container {
 .page-nav-list .list-item .page-nav-link {
   padding: 24px 0;
   display: inline-block;
+  position: relative;
 }
 
-.page-nav-list .list-item.active .page-nav-link {
-  color: var(--pressed-state);
+.page-nav-list .list-item.current .page-nav-link {
+  color: var(--ocean);
+}
+
+.page-nav-list .list-item.current .page-nav-link::after {
+  content: "";
+  display: block;
+  position: absolute;
+  height: 4px;
+  width: 100%;
+  bottom: -1px;
+  border-radius: 2px;
+  background-color: var(--ocean);
+
 }
 
 .page-nav-list .list-item:not(:last-child),
@@ -205,7 +221,11 @@ header .container {
 }
 
 .section-hero {
-  background-color: var(--dark);
+  background-color: var(--navy-blue);
+  background-image: linear-gradient(rgba(46, 47, 66, 0.7), rgba(46, 47, 66, 0.7)), url(../images/hero-bg.jpg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
   text-align: center;
   padding: 188px 0;
 }
@@ -221,7 +241,7 @@ header .container {
 }
 
 .section-team {
-  background-color: var(--light);
+  background-color: var(--cloud);
 }
 
 /* Lists */
@@ -229,7 +249,8 @@ header .container {
 .projects-list,
 .team-list,
 .portfolio-list, 
-.portfolio-filter-list {
+.portfolio-filter-list,
+.customers-list {
   display: flex;
   flex-wrap: wrap;
   gap: 24px;
@@ -238,14 +259,53 @@ header .container {
 .advantages-list .card {
   flex-basis: 264px;
 }
+.advantages-list .icon {
+  width: 64px;
+  height: 64px;
+}
+
+.advantages-list .card-header {
+  background-color: var(--cloud);
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+  border-radius: 4px;
+}
 .advantages-list .card .card-body {
   padding: 0;
 }
+
 
 .team-list > li {
   text-align:  center;
   box-shadow: 0 2px 6px rgba(46, 47, 66, 0.16); 
 }
+.team-list .card-body .text {
+  margin-bottom: 8px;
+}
+
+.social-links {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.social-links .icon {
+  width: 40px;
+  height: 40px;
+  fill: var(--iris);
+}
+
+.icon {
+  transition: fill var(--transition-property);
+}
+
+.social-links .social-link:hover .icon {
+  fill: var(--ocean);
+}
+
 .portfolio-list {
   row-gap: 48px;
 }
@@ -253,6 +313,68 @@ header .container {
 .portfolio-filter-list {
   justify-content: center;
   margin-bottom: 72px;
+}
+.customers-list > li {
+  flex-basis: 168px;
+}
+.customers-list .customer-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 88px;
+  border: 1px solid var(--light-slate);
+  border-radius: 4px;
+}
+.customers-list .icon {
+  fill: var(--light-slate);
+}
+.customers-list .customer-link:hover {
+  border-color: var(--ocean);
+}
+.customers-list .customer-link:hover .icon {
+  fill: var(--ocean);
+}
+.portfolio-link {
+  display: block;
+  transition: box-shadow var(--transition-property);
+}
+.portfolio-link:hover {
+  color: var(--slate)
+}
+.portfolio-link .card-header {
+  position: relative;
+  overflow: hidden;
+}
+
+.icon.icon-close .t1 {
+  fill: #e7e9fc;
+}
+.icon.icon-close .t2 {
+  fill: #fff;
+}
+.icon.icon-close .t3 {
+  fill: #2e2f42;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: translateY(100%);
+  transition: transform 250ms ease-in-out;
+  background-color: var(--iris);
+  padding: 40px 32px;
+  color: var(--white-text);
+}
+
+.portfolio-link:hover .overlay {
+  transform: translateY(0);
+}
+
+.portfolio-link:hover {
+  box-shadow: 0px 2px 6px 0px rgba(46, 47, 66, 0.16);
 }
 
 /* Cards */
@@ -269,7 +391,7 @@ header .container {
 }
 
 .portfolio-list .card-body {
-  border: 1px solid var(--accent);
+  border: 1px solid var(--cornflower);
   border-top: none;
 }
 
@@ -282,15 +404,15 @@ header .container {
   font-size: 18px;
   line-height: 1.16;
   letter-spacing: 3%;
-  color: var(--primary-brand);
+  color: var(--iris);
   display: inline-block;
 }
 .brandlogo-text:hover,
 .brandlogo-text:focus  {
-  color: var(--primary-brand)
+  color: var(--iris)
 }
 .brandlogo-text .accent {
-  color: var(--dark);
+  color: var(--navy-blue);
 }
 .brandlogo-text.light .accent {
   color: var(--white-text);
@@ -298,15 +420,86 @@ header .container {
 
 /* Footer */
 footer {
-  background-color: var(--dark);
+  background-color: var(--navy-blue);
   color: var(--white-text);
   padding: 100px 0;
 }
 
-footer .text {
+footer .container {
+  display: flex;
+  align-items: start;
+  gap: 120px;
+}
+
+footer .column:nth-child(1) {
   max-width: 264px;
 }
 
-footer .brandlogo-text {
+footer .social-links {
+  gap: 16px;
+}
+
+footer .social-links .social-link:hover .icon {
+  fill: var(--green);
+}
+footer .title {
+  font-weight: 500;
+}
+footer .brandlogo-text, footer .title {
   margin-bottom: 16px;
+}
+
+
+
+/* Modal */
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.backdrop.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.modal {
+  position: absolute;
+  padding: 24px;
+  background-color: var(--white-background);
+  max-width: 480px;
+  width: 50%;
+  height: 75vh;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.modal > .modal-header {
+  display: flex;
+  justify-content: end;
+  margin-bottom: 24px;
+}
+
+.modal .close-button {
+  border: 0;
+  background-color: transparent;
+  outline: none;
+}
+
+.icon-close {
+  width: 24px;
+  height: 24px;
+  display: block;
+  background-image: url(../images/icon-close.svg);
+  transition: background-image var(--transition-property);
+}
+
+.modal .close-button:hover .icon-close {
+  background-image: url(../images/icon-close-active.svg);
 }
